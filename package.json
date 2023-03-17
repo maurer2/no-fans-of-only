@@ -12,7 +12,7 @@
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test",
-    "act:test": "act --secret-file .env -W .github/workflows/meow.yml -j build -w"
+    "act:meow": "act --secret-file .env -W .github/workflows/meow.yml -j build -w"
   },
   "repository": {
     "type": "git",

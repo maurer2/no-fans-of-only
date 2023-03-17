@@ -1,12 +1,13 @@
-import * as core from '@actions/core'
+import * as core from '@actions/core';
 
 async function run(): Promise<void> {
   try {
-    console.log('meow 2')
-    setOutput('type', 'meow 3')
+    core.debug(`meow1`);
+    // eslint-disable-next-line no-console
+    console.log(`meow2`);
   } catch (error) {
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) core.setFailed(error.message);
   }
 }
 
-run()
+run();
