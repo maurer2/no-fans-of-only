@@ -1,7 +1,7 @@
 /* eslint-disable no-only-tests/no-only-tests */
 import {describe, expect, test} from 'vitest';
 
-import testFunction from './test-functiom';
+import testFunction from './test-function';
 
 describe.only('test function', () => {
   test.only('test function', () => {
