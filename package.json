@@ -3,16 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "main": "src/main.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc './src/main.ts' --outDir './lib'",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
+    "start": "ts-node './src/main.ts'",
+    "start:js": "node ./lib/main.js'",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test",
-    "act:meow": "act --secret-file .env -W .github/workflows/meow.yml -j build -w"
+    "act:meow": "act --secret-file .env -W .github/workflows/meow.yml -j build -w",
+    "act:check-for-only": "act --secret-file .env -W .github/workflows/check-for-only.yml -j build -w"
   },
   "repository": {
     "type": "git",
@@ -26,19 +29,20 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.10.0"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-github": "^4.3.2",
-    "eslint-plugin-jest": "^25.3.2",
-    "jest": "^27.2.5",
+    "@actions/core": "^1.10.0",
+    "ts-node": "^10.9.1",
+    "vite": "^4.2.0",
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/parser": "^5.55.0",
+    "@vercel/ncc": "^0.36.1",
+    "eslint": "^8.36.0",
+    "eslint-plugin-github": "^4.6.1",
+    "eslint-plugin-jest": "^27.2.1",
+    "jest": "^29.5.0",
     "js-yaml": "^4.1.0",
-    "prettier": "2.5.1",
-    "ts-jest": "^27.1.2",
-    "typescript": "^4.4.4"
+    "prettier": "2.8.4",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.2",
+    "vitest": "^0.29.3"
   }
 }
