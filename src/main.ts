@@ -2,7 +2,7 @@
 import {promises as fs2} from 'node:fs';
 import path from 'node:path';
 
-import core from '@actions/core';
+import * as core from '@actions/core';
 import klaw from 'klaw';
 
 type FileCheckResult = [filePath: string, haMatch: boolean];
@@ -12,7 +12,7 @@ const targetFolder = path.resolve(__dirname, '../target');
 
 async function run(): Promise<void> {
   try {
-    // core.debug(`meow1`);
+    core.debug(`meow`);
 
     const filePaths: string[] = [];
     for await (const file of klaw('./target')) {
@@ -42,17 +42,21 @@ async function run(): Promise<void> {
         ({status}) => status === 'fulfilled'
       ) as unknown as PromiseFulfilledResult<FileCheckResult>[]; // dirty
 
-    const hasTestsWithOnly = fileCheckingResultsSuccess.some(fileCheck =>
+    const hasTestWithOnly = fileCheckingResultsSuccess.some(fileCheck =>
       Boolean(fileCheck.value[1])
     );
-    console.log('has tests with only', hasTestsWithOnly);
+    if (hasTestWithOnly) {
+      throw new Error('pr contains tests with only');
+    }
+    core.debug('no tests with only found');
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message);
-      console.log(error);
+      return;
     }
+    core.setFailed('error');
   } finally {
-    console.log('done');
+    core.debug('done');
   }
 }
 
